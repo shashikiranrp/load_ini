@@ -138,7 +138,7 @@ public class AppConfig
         if (null == key || key.isEmpty()) {
             return null;
         }
-        Map<String, String> grpMap = innerMap.get(key);
+        final Map<String, String> grpMap = innerMap.get(key);
         return null == grpMap ? null : Collections.<String, String>unmodifiableMap(grpMap);
 
     }
@@ -149,8 +149,8 @@ public class AppConfig
             return null;
         }
 
-        String[] grpAndKey = key.split("\\.");
-        Map<String, String> grpMap = getGroup(grpAndKey[0]);
+        final String[] grpAndKey = key.split("\\.");
+        final Map<String, String> grpMap = getGroup(grpAndKey[0]);
         if (null == grpMap) {
             return null;
         } else {
