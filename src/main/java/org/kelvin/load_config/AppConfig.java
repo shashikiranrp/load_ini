@@ -99,15 +99,19 @@ public class AppConfig
                                 continue;
                             }
                             override = key.substring(overrideStart + 1, key.length() - 1);
-                            key = key.substring(0, overrideStart - 1);
+                            key = key.substring(0, overrideStart);
                         }
 
                         if (null != override) {
                             if (overrideMap.keySet().contains(override)) {
                                 final String overrideKey = currentGrpName.concat(".").concat(key);
                                 final Integer currentOverrideRank = keysWeightMap.get(overrideKey);
-                                if (currentOverrideRank > overrideMap.get(override)) {
+                                if (currentOverrideRank == null) {
+                                    keysWeightMap.put(overrideKey, overrideMap.get(override));
+                                } else if (currentOverrideRank > overrideMap.get(override)) {
                                     continue;
+                                } else {
+                                    keysWeightMap.put(overrideKey, overrideMap.get(override));
                                 }
                             } else {
                                 sLogger.warning("ignoring unknown override " + override + " at line " + lineNo);
