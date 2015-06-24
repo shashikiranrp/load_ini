@@ -20,7 +20,7 @@ public class AppConfig
         this.innerMap = new HashMap<String, Map<String, String>>();
     }
 
-    public static AppConfig load(String filePath, boolean ignoreFaultLines, String... overrides)
+    public static AppConfig load(final String filePath, final boolean ignoreFaultLines, final String... overrides)
             throws ConfigLoadException
     {
         if (null == filePath || filePath.isEmpty()) {
@@ -38,7 +38,7 @@ public class AppConfig
         }
 
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            AppConfig appConfig = new AppConfig();
+            final AppConfig appConfig = new AppConfig();
             String nextLine = null;
             Map<String, String> currentGrpMap = null;
             String currentGrpName = null;
@@ -127,13 +127,13 @@ public class AppConfig
                 }
             }
             return appConfig;
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new ConfigLoadException("exception while reading: ".concat(filePath), e);
         }
     }
 
 
-    public Map<String, String> getGroup(String key)
+    public Map<String, String> getGroup(final String key)
     {
         if (null == key || key.isEmpty()) {
             return null;
@@ -143,7 +143,7 @@ public class AppConfig
 
     }
 
-    public String get(@Nullable String key)
+    public String get(@Nullable final String key)
     {
         if (null == key || key.isEmpty()) {
             return null;
@@ -160,10 +160,10 @@ public class AppConfig
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("{\n");
-        for (Map.Entry<String, Map<String, String>> entry : innerMap.entrySet()) {
+        final StringBuilder builder = new StringBuilder("{\n");
+        for (final Map.Entry<String, Map<String, String>> entry : innerMap.entrySet()) {
             builder.append("\t[").append(entry.getKey()).append("]: \n");
-            for (Map.Entry<String, String> kv : entry.getValue().entrySet()) {
+            for (final Map.Entry<String, String> kv : entry.getValue().entrySet()) {
                 builder.append("\t\t").append(kv.getKey()).append(" = ").append(kv.getValue()).append("\n");
             }
         }
